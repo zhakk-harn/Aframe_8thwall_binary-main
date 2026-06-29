@@ -84,6 +84,7 @@
         canvas: document.getElementById("xr-canvas"),
         imageTargets: targets,
         onImageFound: (detail) => {
+          console.log({ detail });
           applyTargetPose(detail.entity, detail);
           detail.entity.visible = true;
         },
