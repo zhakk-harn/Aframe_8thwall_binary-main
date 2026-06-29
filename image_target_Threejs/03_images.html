@@ -90,14 +90,14 @@
         imageTargets: targets,
         onImageFound: (detail) => {
           console.log({ detail });
-          applyTargetPose(detail.entity, detail);
-          detail.entity.visible = true;
+          applyTargetPose(detail.metadata.entity, detail);
+          detail.metadata.entity.visible = true;
         },
         onImageUpdated: (detail) => {
-          applyTargetPose(detail.entity, detail);
+          applyTargetPose(detail.metadata.entity, detail);
         },
         onImageLost: (detail) => {
-          detail.entity.visible = false;
+          detail.metadata.visible = false;
         },
       });
 
