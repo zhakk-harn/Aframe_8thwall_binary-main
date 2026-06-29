@@ -59,41 +59,45 @@
             originalHeight: 830,
             isRotated: false,
           },
+          entity: await (async () => {
+            // TODO refactor into a make3DImage(texture, options) or something
+            // or subclass the THREE.Mesh class
+
+            const loader = new THREE.TextureLoader();
+            const texture = await loader.loadAsync("../assets/export1.png");
+
+            const plane = new THREE.Mesh(
+              new THREE.PlaneGeometry(1.5, 1.5),
+              new THREE.MeshBasicMaterial({ map: texture, transparent: true }),
+            );
+
+            plane.position.set(0, 0.3, 0);
+            plane.visible = false;
+
+            return plane;
+          })(),
         },
       ];
-
-      const group = new THREE.Group();
-      group.visible = false;
-
-      // Load image texture
-      const loader = new THREE.TextureLoader();
-      const texture = await loader.loadAsync("../assets/export1.png");
-
-      // the object we put on the image
-      const plane = new THREE.Mesh(
-        new THREE.PlaneGeometry(1.5, 1.5),
-        new THREE.MeshBasicMaterial({ map: texture, transparent: true }),
-      );
-      plane.position.set(0, 0.3, 0);
-      group.add(plane);
 
       // --- Start XR8 ---
       const { scene } = await startXR8({
         canvas: document.getElementById("xr-canvas"),
         imageTargets: targets,
         onImageFound: (detail) => {
-          applyTargetPose(group, detail);
-          group.visible = true;
+          applyTargetPose(detail.entity, detail);
+          detail.entity.visible = true;
         },
         onImageUpdated: (detail) => {
-          applyTargetPose(group, detail);
+          applyTargetPose(detail.entity, detail);
         },
-        onImageLost: () => {
-          group.visible = false;
+        onImageLost: (detail) => {
+          detail.entity.visible = false;
         },
       });
 
-      scene.add(group);
+      for (const target of targets) {
+        scene.add(target.entity);
+      }
     </script>
   </body>
 </html>
