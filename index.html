@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A-Frame + 8th Wall Examples</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #8b949e;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 2.5rem auto 0.3rem;
+      max-width: 960px;
+      font-size: 1.2rem;
+      color: #8b949e;
+    }
+
+    .section-desc {
+      text-align: center;
+      color: #6e7681;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .card.blue:hover { border-color: #58a6ff; }
+    .card.orange:hover { border-color: #f0883e; }
+    .card.green:hover { border-color: #3fb950; }
+    .card.purple:hover { border-color: #bc8cff; }
+
+    .card-number {
+      display: inline-block;
+      color: #0d1117;
+      font-weight: 700;
+      font-size: 0.85rem;
+      width: 2rem;
+      height: 2rem;
+      line-height: 2rem;
+      text-align: center;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge-blue   { background: #58a6ff; }
+    .badge-orange { background: #f0883e; }
+    .badge-green  { background: #3fb950; }
+    .badge-purple { background: #bc8cff; }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-path {
+      font-size: 0.8rem;
+      color: #8b949e;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>A-Frame + 8th Wall Examples</h1>
+  <p class="subtitle">Click a card to open the example</p>
+
+  <!-- ================================================================
+       IMAGE TARGET — A-Frame (8frame)
+       ================================================================ -->
+  <h2 class="section-title" style="margin-top: 0;">Image Target — A-Frame (8frame)</h2>
+  <p class="section-desc">Uses 8frame 1.3.0 (A-Frame fork) with Three.js r137 — declarative HTML approach</p>
+
+  <div class="grid">
+    <a class="card blue" href="image_target_8thFrame/01_primitives.html">
+      <span class="card-number badge-blue">01</span>
+      <div class="card-title">Primitives</div>
+      <div class="card-path">image_target_8thFrame/01_primitives.html</div>
+    </a>
+    <a class="card blue" href="image_target_8thFrame/02_text_msdf.html">
+      <span class="card-number badge-blue">02</span>
+      <div class="card-title">Text MSDF</div>
+      <div class="card-path">image_target_8thFrame/02_text_msdf.html</div>
+    </a>
+    <a class="card blue" href="image_target_8thFrame/03_images.html">
+      <span class="card-number badge-blue">03</span>
+      <div class="card-title">Images</div>
+      <div class="card-path">image_target_8thFrame/03_images.html</div>
+    </a>
+    <a class="card blue" href="image_target_8thFrame/04_3d_models.html">
+      <span class="card-number badge-blue">04</span>
+      <div class="card-title">3D Models</div>
+      <div class="card-path">image_target_8thFrame/04_3d_models.html</div>
+    </a>
+    <a class="card blue" href="image_target_8thFrame/05_video_chroma.html">
+      <span class="card-number badge-blue">05</span>
+      <div class="card-title">Video Chroma</div>
+      <div class="card-path">image_target_8thFrame/05_video_chroma.html</div>
+    </a>
+    <a class="card blue" href="image_target_8thFrame/05_b_video_chroma.html">
+      <span class="card-number badge-blue">05b</span>
+      <div class="card-title">Video Chroma + audio</div>
+      <div class="card-path">image_target_8thFrame/05_b_video_chroma.html</div>
+    </a>
+    <a class="card blue" href="image_target_8thFrame/06_audio.html">
+      <span class="card-number badge-blue">06</span>
+      <div class="card-title">Audio</div>
+      <div class="card-path">image_target_8thFrame/06_audio.html</div>
+    </a>
+    <a class="card blue" href="image_target_8thFrame/07_p5js.html">
+      <span class="card-number badge-blue">07</span>
+      <div class="card-title">p5.js</div>
+      <div class="card-path">image_target_8thFrame/07_p5js.html</div>
+    </a>
+    <a class="card blue" href="image_target_8thFrame/08_gaussian_splat.html">
+      <span class="card-number badge-blue">08</span>
+      <div class="card-title">Gaussian Splat</div>
+      <div class="card-path">image_target_8thFrame/08_gaussian_splat.html</div>
+    </a>
+    <a class="card blue" href="image_target_8thFrame/09_multi_targets.html">
+      <span class="card-number badge-blue">09</span>
+      <div class="card-title">Multi Targets</div>
+      <div class="card-path">image_target_8thFrame/09_multi_targets.html</div>
+    </a>
+  </div>
+
+  <!-- ================================================================
+       IMAGE TARGET — Raw Three.js r178
+       ================================================================ -->
+  <h2 class="section-title">Image Target — Raw Three.js r178</h2>
+  <p class="section-desc">Same examples rewritten with raw Three.js + XR8 pipeline hooks — enables Spark.js Gaussian Splatting</p>
+
+  <div class="grid">
+    <a class="card orange" href="image_target_Threejs/01_primitives.html">
+      <span class="card-number badge-orange">01</span>
+      <div class="card-title">Primitives</div>
+      <div class="card-path">image_target_Threejs/01_primitives.html</div>
+    </a>
+    <a class="card orange" href="image_target_Threejs/02_text_msdf.html">
+      <span class="card-number badge-orange">02</span>
+      <div class="card-title">Text &amp; Fonts</div>
+      <div class="card-path">image_target_Threejs/02_text_msdf.html</div>
+    </a>
+    <a class="card orange" href="image_target_Threejs/03_images.html">
+      <span class="card-number badge-orange">03</span>
+      <div class="card-title">Images</div>
+      <div class="card-path">image_target_Threejs/03_images.html</div>
+    </a>
+    <a class="card orange" href="image_target_Threejs/04_3d_models.html">
+      <span class="card-number badge-orange">04</span>
+      <div class="card-title">3D Models</div>
+      <div class="card-path">image_target_Threejs/04_3d_models.html</div>
+    </a>
+    <a class="card orange" href="image_target_Threejs/05_video_chroma.html">
+      <span class="card-number badge-orange">05</span>
+      <div class="card-title">Video Chroma</div>
+      <div class="card-path">image_target_Threejs/05_video_chroma.html</div>
+    </a>
+    <a class="card orange" href="image_target_Threejs/06_audio.html">
+      <span class="card-number badge-orange">06</span>
+      <div class="card-title">Audio</div>
+      <div class="card-path">image_target_Threejs/06_audio.html</div>
+    </a>
+    <a class="card orange" href="image_target_Threejs/07_p5js.html">
+      <span class="card-number badge-orange">07</span>
+      <div class="card-title">p5.js</div>
+      <div class="card-path">image_target_Threejs/07_p5js.html</div>
+    </a>
+    <a class="card orange" href="image_target_Threejs/08_gaussian_splat.html">
+      <span class="card-number badge-orange">08</span>
+      <div class="card-title">Gaussian Splat (Spark.js)</div>
+      <div class="card-path">image_target_Threejs/08_gaussian_splat.html</div>
+    </a>
+    <a class="card orange" href="image_target_Threejs/09_multi_targets.html">
+      <span class="card-number badge-orange">09</span>
+      <div class="card-title">Multi Targets</div>
+      <div class="card-path">image_target_Threejs/09_multi_targets.html</div>
+    </a>
+  </div>
+
+  <!-- ================================================================
+       WORLD EFFECT — A-Frame (8frame)
+       ================================================================ -->
+  <h2 class="section-title">World Effect — A-Frame (8frame)</h2>
+  <p class="section-desc">Tap-to-place on detected surfaces — world tracking enabled, no image targets</p>
+
+  <div class="grid">
+    <a class="card green" href="world_8thFrame/01_primitives.html">
+      <span class="card-number badge-green">01</span>
+      <div class="card-title">Primitives</div>
+      <div class="card-path">world_8thFrame/01_primitives.html</div>
+    </a>
+    <a class="card green" href="world_8thFrame/02_text_msdf.html">
+      <span class="card-number badge-green">02</span>
+      <div class="card-title">Text MSDF</div>
+      <div class="card-path">world_8thFrame/02_text_msdf.html</div>
+    </a>
+    <a class="card green" href="world_8thFrame/03_images.html">
+      <span class="card-number badge-green">03</span>
+      <div class="card-title">Images</div>
+      <div class="card-path">world_8thFrame/03_images.html</div>
+    </a>
+    <a class="card green" href="world_8thFrame/04_3d_models.html">
+      <span class="card-number badge-green">04</span>
+      <div class="card-title">3D Models</div>
+      <div class="card-path">world_8thFrame/04_3d_models.html</div>
+    </a>
+    <a class="card green" href="world_8thFrame/05_video_chroma.html">
+      <span class="card-number badge-green">05</span>
+      <div class="card-title">Video Chroma</div>
+      <div class="card-path">world_8thFrame/05_video_chroma.html</div>
+    </a>
+    <a class="card green" href="world_8thFrame/06_audio.html">
+      <span class="card-number badge-green">06</span>
+      <div class="card-title">Audio</div>
+      <div class="card-path">world_8thFrame/06_audio.html</div>
+    </a>
+    <a class="card green" href="world_8thFrame/07_p5js.html">
+      <span class="card-number badge-green">07</span>
+      <div class="card-title">p5.js</div>
+      <div class="card-path">world_8thFrame/07_p5js.html</div>
+    </a>
+    <a class="card green" href="world_8thFrame/08_gaussian_splat.html">
+      <span class="card-number badge-green">08</span>
+      <div class="card-title">Gaussian Splat</div>
+      <div class="card-path">world_8thFrame/08_gaussian_splat.html</div>
+    </a>
+    <a class="card green" href="world_8thFrame/09_multi_targets.html">
+      <span class="card-number badge-green">09</span>
+      <div class="card-title">Multi Placement</div>
+      <div class="card-path">world_8thFrame/09_multi_targets.html</div>
+    </a>
+  </div>
+
+  <!-- ================================================================
+       WORLD EFFECT — Raw Three.js r178
+       ================================================================ -->
+  <h2 class="section-title">World Effect — Raw Three.js r178</h2>
+  <p class="section-desc">Tap-to-place with raw Three.js + XR8 world tracking pipeline</p>
+
+  <div class="grid">
+    <a class="card purple" href="world_Threejs/01_primitives.html">
+      <span class="card-number badge-purple">01</span>
+      <div class="card-title">Primitives</div>
+      <div class="card-path">world_Threejs/01_primitives.html</div>
+    </a>
+    <a class="card purple" href="world_Threejs/02_text_msdf.html">
+      <span class="card-number badge-purple">02</span>
+      <div class="card-title">Text &amp; Fonts</div>
+      <div class="card-path">world_Threejs/02_text_msdf.html</div>
+    </a>
+    <a class="card purple" href="world_Threejs/03_images.html">
+      <span class="card-number badge-purple">03</span>
+      <div class="card-title">Images</div>
+      <div class="card-path">world_Threejs/03_images.html</div>
+    </a>
+    <a class="card purple" href="world_Threejs/04_3d_models.html">
+      <span class="card-number badge-purple">04</span>
+      <div class="card-title">3D Models</div>
+      <div class="card-path">world_Threejs/04_3d_models.html</div>
+    </a>
+    <a class="card purple" href="world_Threejs/05_video_chroma.html">
+      <span class="card-number badge-purple">05</span>
+      <div class="card-title">Video Chroma</div>
+      <div class="card-path">world_Threejs/05_video_chroma.html</div>
+    </a>
+    <a class="card purple" href="world_Threejs/06_audio.html">
+      <span class="card-number badge-purple">06</span>
+      <div class="card-title">Audio</div>
+      <div class="card-path">world_Threejs/06_audio.html</div>
+    </a>
+    <a class="card purple" href="world_Threejs/07_p5js.html">
+      <span class="card-number badge-purple">07</span>
+      <div class="card-title">p5.js</div>
+      <div class="card-path">world_Threejs/07_p5js.html</div>
+    </a>
+    <a class="card purple" href="world_Threejs/08_gaussian_splat.html">
+      <span class="card-number badge-purple">08</span>
+      <div class="card-title">Gaussian Splat (Spark.js)</div>
+      <div class="card-path">world_Threejs/08_gaussian_splat.html</div>
+    </a>
+    <a class="card purple" href="world_Threejs/09_multi_targets.html">
+      <span class="card-number badge-purple">09</span>
+      <div class="card-title">Multi Placement</div>
+      <div class="card-path">world_Threejs/09_multi_targets.html</div>
+    </a>
+  </div>
+
+</body>
+</html>
