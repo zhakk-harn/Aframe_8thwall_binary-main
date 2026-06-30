@@ -55,7 +55,7 @@
 
       // a map<label, Promise<asset>>
       const assets = {
-        export1: textureLoader("../assets/export1.png"),
+        export1: textureLoader.loadAsync("../assets/export1.png"),
       };
 
       // the loading af all assets in "parrallel"
