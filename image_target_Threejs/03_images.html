@@ -60,7 +60,7 @@
 
       // the loading af all assets in "parrallel"
       await Promise.all(
-        Object.entries(assets).forEach(async ([k, v]) => {
+        Object.entries(assets).map(async ([k, v]) => {
           // is it then-able? i.e. is it a Promise?
           if (v.then) {
             assets[k] = await v;
