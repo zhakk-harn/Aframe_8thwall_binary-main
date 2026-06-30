@@ -341,6 +341,19 @@ export class XR83Image extends THREE.Mesh {
     this.position.set(0, 0.3, 0);
     this.visible = false;
   }
+
+  onImageFound(detail) {
+    applyTargetPose(detail.metadata.entity, detail);
+    detail.metadata.entity.visible = true;
+  }
+
+  onImageUpdated(detail) {
+    applyTargetPose(detail.metadata.entity, detail);
+  }
+
+  onImageLost(detail) {
+    detail.metadata.visible = false;
+  }
 }
 
 class XR83Video {

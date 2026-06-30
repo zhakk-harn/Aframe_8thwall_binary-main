@@ -53,7 +53,7 @@
       // one for each asset type
       const textureLoader = new THREE.TextureLoader();
 
-      // a map<label, Promise<asset>>
+      // a Object<label, Promise<asset> || asset>
       const assets = {
         export1: textureLoader.loadAsync("../assets/export1.png"),
       };
@@ -62,20 +62,35 @@
       await Promise.all(
         Object.entries(assets).map(async ([k, v]) => {
           // is it then-able? i.e. is it a Promise?
+          // if so await it
           if (v.then) {
             assets[k] = await v;
           }
         }),
-      );
+      ); // so now `assets` is a Object<label,asset>
 
       const targets = [
         {
           name: "my-poster",
           type: "PLANAR",
           imagePath: "../assets/Targets/Target_1000055040.jpg",
-          // TODO refactor into a make3DImage(texture, options) or something
-          // or subclass the THREE.Mesh class
-          // and put them in xr8-three-bottstrap
+          metadata: {
+            entity: new XR83Image(assets.export1),
+          },
+          properties: {
+            left: 0,
+            top: 0,
+            width: 830,
+            height: 830,
+            originalWidth: 830,
+            originalHeight: 830,
+            isRotated: false,
+          },
+        },
+        {
+          name: "cat-poster",
+          type: "PLANAR",
+          imagePath: "../assets/Targets/Target_cat.jpg",
           metadata: {
             entity: new XR83Image(assets.export1),
           },
@@ -92,23 +107,39 @@
       ];
 
       // --- Start XR8 ---
+      // TODO hidde the complexity because it doesn't require change from the POV of the user of XR83
       const { scene } = await startXR8({
         canvas: document.getElementById("xr-canvas"),
         imageTargets: targets,
-        // TODO
-        // just pass these straight down to all the different kind of entities
-        // because every entity of one kind is bound to do the same thing, at the minimum
-        // also have the entities raise these events and accept listeners so their reactions can be customised
         onImageFound: (detail) => {
-          console.log({ detail });
-          applyTargetPose(detail.metadata.entity, detail);
-          detail.metadata.entity.visible = true;
+          const preventDefault = detail.metadata.entity.onImageFound(detail);
+
+          if (!preventDefault && typeof preventDefault != "undefined") {
+            return;
+          }
+
+          // common part for every entity type
+          // TODO?
         },
         onImageUpdated: (detail) => {
-          applyTargetPose(detail.metadata.entity, detail);
+          const preventDefault = detail.metadata.entity.onImageUpdated(detail);
+
+          if (!preventDefault && typeof preventDefault != "undefined") {
+            return;
+          }
+
+          // common part for every entity type
+          // TODO?
         },
         onImageLost: (detail) => {
-          detail.metadata.visible = false;
+          const preventDefault = detail.metadata.entity.onImageLost(detail);
+
+          if (!preventDefault && typeof preventDefault != "undefined") {
+            return;
+          }
+
+          // common part for every entity type
+          // TODO?
         },
       });
 
