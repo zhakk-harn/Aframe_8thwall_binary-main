@@ -43,34 +43,41 @@
 
     <script type="module">
       import * as THREE from "three";
-      import { startXR8, applyTargetPose } from "./lib/xr8-three-bootstrap.js";
+      import {
+        startXR8,
+        applyTargetPose,
+        XR83Image,
+      } from "./lib/xr8-three-bootstrap.js";
+
+      // all the shared loaders
+      // one for each asset type
+      const textureLoader = new THREE.TextureLoader();
+
+      // a map<label, Promise<asset>>
+      const assets = {
+        export1: textureLoader("../assets/export1.png"),
+      };
+
+      // the loading af all assets in "parrallel"
+      await Promise.all(
+        Object.entries(assets).forEach(async ([k, v]) => {
+          // is it then-able? i.e. is it a Promise?
+          if (v.then) {
+            assets[k] = await v;
+          }
+        }),
+      );
 
       const targets = [
         {
           name: "my-poster",
           type: "PLANAR",
           imagePath: "../assets/Targets/Target_1000055040.jpg",
+          // TODO refactor into a make3DImage(texture, options) or something
+          // or subclass the THREE.Mesh class
+          // and put them in xr8-three-bottstrap
           metadata: {
-            entity: await (async () => {
-              // TODO refactor into a make3DImage(texture, options) or something
-              // or subclass the THREE.Mesh class
-
-              const loader = new THREE.TextureLoader();
-              const texture = await loader.loadAsync("../assets/export1.png");
-
-              const plane = new THREE.Mesh(
-                new THREE.PlaneGeometry(1.5, 1.5),
-                new THREE.MeshBasicMaterial({
-                  map: texture,
-                  transparent: true,
-                }),
-              );
-
-              plane.position.set(0, 0.3, 0);
-              plane.visible = false;
-
-              return plane;
-            })(),
+            entity: new XR83Image(assets.export1),
           },
           properties: {
             left: 0,
@@ -88,6 +95,10 @@
       const { scene } = await startXR8({
         canvas: document.getElementById("xr-canvas"),
         imageTargets: targets,
+        // TODO
+        // just pass these straight down to all the different kind of entities
+        // because every entity of one kind is bound to do the same thing, at the minimum
+        // also have the entities raise these events and accept listeners so their reactions can be customised
         onImageFound: (detail) => {
           console.log({ detail });
           applyTargetPose(detail.metadata.entity, detail);

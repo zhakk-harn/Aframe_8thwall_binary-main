@@ -9,16 +9,15 @@
  *   - XR8 pipeline provides camera pose + image-target data each frame
  */
 
-// apparently if your commit message is just "." github just doesn't know what to do a replicate the previous commit instead of taking the one with the "." into consideration.
-import * as THREE from 'three';
+import * as THREE from "three";
 
 // ---------------------------------------------------------------------------
 // Loading overlay
 // ---------------------------------------------------------------------------
 
 function createLoadingOverlay() {
-  const overlay = document.createElement('div');
-  overlay.id = 'xr8-loading';
+  const overlay = document.createElement("div");
+  overlay.id = "xr8-loading";
   overlay.innerHTML = `
     <style>
       #xr8-loading {
@@ -44,7 +43,7 @@ function createLoadingOverlay() {
 }
 
 function removeLoadingOverlay() {
-  const el = document.getElementById('xr8-loading');
+  const el = document.getElementById("xr8-loading");
   if (el) el.remove();
 }
 
@@ -109,7 +108,10 @@ export async function startXR8(config) {
   const state = {
     scene: new THREE.Scene(),
     camera: new THREE.PerspectiveCamera(
-      60, window.innerWidth / window.innerHeight, 0.01, 1000
+      60,
+      window.innerWidth / window.innerHeight,
+      0.01,
+      1000,
     ),
     renderer: null,
     clock: new THREE.Clock(),
@@ -123,14 +125,14 @@ export async function startXR8(config) {
 
   // ------ Three.js pipeline module ------
   const threejsModule = {
-    name: 'custom-threejs',
+    name: "custom-threejs",
 
     onStart: () => {
       // Separate canvas for Three.js — avoids GL context conflicts with XR8
-      const threeCanvas = document.createElement('canvas');
-      threeCanvas.id = 'three-canvas';
+      const threeCanvas = document.createElement("canvas");
+      threeCanvas.id = "three-canvas";
       threeCanvas.style.cssText =
-        'position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1;';
+        "position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1;";
       document.body.appendChild(threeCanvas);
 
       state.renderer = new THREE.WebGLRenderer({
@@ -178,14 +180,17 @@ export async function startXR8(config) {
 
         if (rotation) {
           state.camera.quaternion.set(
-            rotation.x, rotation.y, rotation.z, rotation.w
+            rotation.x,
+            rotation.y,
+            rotation.z,
+            rotation.w,
           );
         }
         if (position) {
           state.camera.position.set(position.x, position.y, position.z);
         }
         // Only apply intrinsics when all values are finite
-        if (intrinsics && !intrinsics.some(v => !Number.isFinite(v))) {
+        if (intrinsics && !intrinsics.some((v) => !Number.isFinite(v))) {
           state.camera.projectionMatrix.fromArray(intrinsics);
           state.camera.projectionMatrixInverse
             .copy(state.camera.projectionMatrix)
@@ -221,9 +226,21 @@ export async function startXR8(config) {
           if (state.sun && detected.length > 0) {
             const img = detected[0];
             const p = img.position;
-            const q = _quat.set(img.rotation.x, img.rotation.y, img.rotation.z, img.rotation.w);
-            const offset = _vec3.set(1, 3, 1).applyQuaternion(q).multiplyScalar(img.scale);
-            state.sun.position.set(p.x + offset.x, p.y + offset.y, p.z + offset.z);
+            const q = _quat.set(
+              img.rotation.x,
+              img.rotation.y,
+              img.rotation.z,
+              img.rotation.w,
+            );
+            const offset = _vec3
+              .set(1, 3, 1)
+              .applyQuaternion(q)
+              .multiplyScalar(img.scale);
+            state.sun.position.set(
+              p.x + offset.x,
+              p.y + offset.y,
+              p.z + offset.z,
+            );
             state.sun.target.position.set(p.x, p.y, p.z);
             state.sun.target.updateMatrixWorld();
           }
@@ -249,16 +266,16 @@ export async function startXR8(config) {
 
     onException: (error) => {
       removeLoadingOverlay();
-      console.error('[XR8] Exception:', error);
+      console.error("[XR8] Exception:", error);
     },
   };
 
   // ------ Image target pipeline module (listener fallback) ------
   const imageTargetModule = {
-    name: 'image-target-events',
+    name: "image-target-events",
     listeners: [
       {
-        event: 'reality.imagefound',
+        event: "reality.imagefound",
         process: ({ detail }) => {
           if (detail && !activeTargets.has(detail.name)) {
             activeTargets.add(detail.name);
@@ -267,13 +284,13 @@ export async function startXR8(config) {
         },
       },
       {
-        event: 'reality.imageupdated',
+        event: "reality.imageupdated",
         process: ({ detail }) => {
           if (detail && onImageUpdated) onImageUpdated(detail);
         },
       },
       {
-        event: 'reality.imagelost',
+        event: "reality.imagelost",
         process: ({ detail }) => {
           if (detail) {
             activeTargets.delete(detail.name);
@@ -287,7 +304,7 @@ export async function startXR8(config) {
   // ------ Wait for XR8 engine ------
   await new Promise((resolve) => {
     if (window.XR8) return resolve();
-    window.addEventListener('xrloaded', resolve);
+    window.addEventListener("xrloaded", resolve);
   });
 
   // ------ Configure & run ------
@@ -309,4 +326,23 @@ export async function startXR8(config) {
   XR8.run({ canvas });
 
   return state;
+}
+
+export class XR83Image extends THREE.Mesh {
+  constructor(texture, opts = {}) {
+    super(
+      new THREE.PlaneGeometry(1.5, 1.5),
+      new THREE.MeshBasicMaterial({
+        map: texture,
+        transparent: true,
+      }),
+    );
+
+    this.position.set(0, 0.3, 0);
+    this.visible = false;
+  }
+}
+
+class XR83Video {
+  constructor() {}
 }
